@@ -229,3 +229,54 @@ end;
 |
 delimiter ;
 
+drop trigger if exists Delete_Owner_Checking_Before;
+delimiter |
+create trigger Delete_Owner_Checking_Before before delete
+on OwnCheckingAccount for each row
+begin
+    set @bname = (select branch_name from Checkingaccount where account_id = old.account_id);
+    delete from HasAccount 
+        where client_id = old.client_id 
+            and branch_name=@bname 
+            and account_type='checking';
+end; |
+delimiter ;
+
+
+drop trigger if exists Insert_Owner_Checking;
+delimiter |
+create trigger Insert_Owner_Checking after insert
+on OwnCheckingAccount for each row
+begin
+	set @bname = (select branch_name from Checkingaccount where account_id = new.account_id);
+	insert into HasAccount(client_id, branch_name, account_type)
+            values(new.client_id, @bname, 'checking');
+end; |
+delimiter ;
+
+
+drop trigger if exists Update_Owner_Checking_Before;
+delimiter |
+create trigger Update_Owner_Checking_Before before update
+on OwnCheckingAccount for each row
+begin
+    set @bname = (select branch_name from Checkingaccount where account_id = old.account_id);
+    delete from HasAccount 
+        where client_id = old.client_id 
+            and branch_name=@bname 
+            and account_type='checking';
+end; |
+delimiter ;
+
+
+drop trigger if exists Update_Owner_Checking_After;
+delimiter |
+create trigger Update_Owner_Checking_After before update
+on OwnCheckingAccount for each row
+begin
+    set @bname = (select branch_name from Checkingaccount where account_id = new.account_id);
+    insert into HasAccount(client_id, branch_name, account_type) 
+        values(new.client_id, @bname, 'checking');
+end;
+|
+delimiter ;
