@@ -2,10 +2,11 @@
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     2019/6/29 10:48:45                           */
 /*==============================================================*/
-
 drop database bank;
 create database bank;
 use bank;
+
+-- create table Temp(str varchar(100));
 
 /*==============================================================*/
 /* Table: Branch                                                */
@@ -177,7 +178,7 @@ create table OwnSavingAccount
 );
 
 
-drop trigger if exists Delete_Owner_Saving_Before;
+-- drop trigger if exists Delete_Owner_Saving_Before;
 delimiter |
 create trigger Delete_Owner_Saving_Before before delete
 on OwnSavingAccount for each row
@@ -191,7 +192,7 @@ end; |
 delimiter ;
 
 
-drop trigger if exists Insert_Owner_Saving;
+-- drop trigger if exists Insert_Owner_Saving;
 delimiter |
 create trigger Insert_Owner_Saving after insert
 on OwnSavingAccount for each row
@@ -203,7 +204,7 @@ end; |
 delimiter ;
 
 
-drop trigger if exists Update_Owner_Saving_Before;
+-- drop trigger if exists Update_Owner_Saving_Before;
 delimiter |
 create trigger Update_Owner_Saving_Before before update
 on OwnSavingAccount for each row
@@ -217,7 +218,7 @@ end; |
 delimiter ;
 
 
-drop trigger if exists Update_Owner_Saving_After;
+-- drop trigger if exists Update_Owner_Saving_After;
 delimiter |
 create trigger Update_Owner_Saving_After before update
 on OwnSavingAccount for each row
@@ -229,12 +230,12 @@ end;
 |
 delimiter ;
 
-drop trigger if exists Delete_Owner_Checking_Before;
+-- drop trigger if exists Delete_Owner_Checking_Before;
 delimiter |
 create trigger Delete_Owner_Checking_Before before delete
 on OwnCheckingAccount for each row
 begin
-    set @bname = (select branch_name from Checkingaccount where account_id = old.account_id);
+    set @bname = (select branch_name from CheckingAccount where account_id = old.account_id);
     delete from HasAccount 
         where client_id = old.client_id 
             and branch_name=@bname 
@@ -243,7 +244,7 @@ end; |
 delimiter ;
 
 
-drop trigger if exists Insert_Owner_Checking;
+-- drop trigger if exists Insert_Owner_Checking;
 delimiter |
 create trigger Insert_Owner_Checking after insert
 on OwnCheckingAccount for each row
@@ -255,7 +256,7 @@ end; |
 delimiter ;
 
 
-drop trigger if exists Update_Owner_Checking_Before;
+-- drop trigger if exists Update_Owner_Checking_Before;
 delimiter |
 create trigger Update_Owner_Checking_Before before update
 on OwnCheckingAccount for each row
@@ -269,7 +270,7 @@ end; |
 delimiter ;
 
 
-drop trigger if exists Update_Owner_Checking_After;
+-- drop trigger if exists Update_Owner_Checking_After;
 delimiter |
 create trigger Update_Owner_Checking_After before update
 on OwnCheckingAccount for each row
@@ -280,3 +281,20 @@ begin
 end;
 |
 delimiter ;
+
+drop user if exists bank_admin@localhost;
+flush privileges;
+create user bank_admin@localhost identified by 'bank_admin';
+grant select on *.* to bank_admin@localhost;
+grant insert,delete,update,select on bank.branch to bank_admin@localhost;
+grant insert,delete,update,select on bank.client to bank_admin@localhost;
+grant insert,delete,update,select on bank.department to bank_admin@localhost;
+grant insert,delete,update,select on bank.loan to bank_admin@localhost;
+grant insert,delete,update,select on bank.checkingaccount to bank_admin@localhost;
+grant insert,delete,update,select on bank.savingaccount to bank_admin@localhost;
+grant insert,delete,update,select on bank.owncheckingaccount to bank_admin@localhost;
+grant insert,delete,update,select on bank.ownsavingaccount to bank_admin@localhost;
+grant insert,delete,update,select on bank.staff to bank_admin@localhost;
+flush privileges;
+
+
