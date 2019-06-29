@@ -1,0 +1,25 @@
+-- drop database bank;
+-- create database bank;
+-- use bank;
+delete from owncheckingaccount;
+delete from checkingaccount;
+delete from ownsavingaccount;
+delete from savingaccount;
+delete from hasaccount;
+delete from client;
+delete from Branch;
+insert into Branch value('合肥支行', '合肥', 1000000);
+insert into Branch value('北京支行', '北京', 2000000);
+insert into client value('001', '张三', '13312345678', '合肥中科大', '李四', '080123456', 'a@b.c', '朋友');
+insert into checkingaccount(account_id, branch_name) value('001', '合肥支行'); 
+insert into checkingaccount(account_id, branch_name) value('002', '合肥支行');
+insert into owncheckingaccount value('001', '001');
+insert into owncheckingaccount value('001', '002');
+insert into savingaccount(account_id, branch_name) value('001', '合肥支行'); 
+insert into savingaccount(account_id, branch_name) value('002', '合肥支行');
+insert into ownsavingaccount value('001', '001');
+insert into ownsavingaccount value('001', '002');
+delete from ownsavingaccount where client_id = '001';
+
+select * from ownsavingaccount;
+select * from hasaccount;

@@ -1,64 +1,76 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2019/6/28 19:46:17                           */
+/* Created on:     2019/6/29 10:48:45                           */
 /*==============================================================*/
 
-
-drop table if exists Branch;
-
-drop table if exists CheckingAccount;
-
-drop table if exists CheckingAccountInfo;
-
-drop table if exists Client;
-
-drop table if exists Department;
-
-drop table if exists Loan;
-
-drop table if exists SavingAccount;
-
-drop table if exists SavingAccountInfo;
-
-drop table if exists Staff;
+drop database bank;
+create database bank;
+use bank;
 
 /*==============================================================*/
 /* Table: Branch                                                */
 /*==============================================================*/
 create table Branch
 (
-   branch_name          varchar(50) not null comment 'Ö§ĞĞÃû×Ö',
-   city                 varchar(50) comment '³ÇÊĞ',
-   property             double comment '×Ê²ú',
+   branch_name          varchar(50) not null comment 'æ”¯è¡Œåå­—',
+   city                 varchar(50) comment 'åŸå¸‚',
+   property             double comment 'èµ„äº§',
    primary key (branch_name)
 );
 
-alter table Branch comment 'Ö§ĞĞ';
+alter table Branch comment 'æ”¯è¡Œ';
+
+/*==============================================================*/
+/* Table: Department                                            */
+/*==============================================================*/
+create table Department
+(
+   department_id        varchar(20) not null comment 'éƒ¨é—¨å·',
+   department_type      int comment 'éƒ¨é—¨ç±»å‹',
+   department_name      varchar(50) comment 'éƒ¨é—¨å',
+   primary key (department_id)
+);
+
+/*==============================================================*/
+/* Table: Staff                                                 */
+/*==============================================================*/
+create table Staff
+(
+   staff_id             varchar(20) not null comment 'é“¶è¡Œå‘˜å·¥èº«ä»½è¯å·',
+   manage_department_id varchar(20) comment 'éƒ¨é—¨å·',
+   department_id        varchar(20) not null comment 'éƒ¨é—¨å·',
+   staff_name           varchar(50) comment 'å‘˜å·¥å§“å',
+   staff_telephone      varchar(20) comment 'å‘˜å·¥ç”µè¯å·ç ',
+   staff_address        varchar(100) comment 'å‘˜å·¥å®¶åº­åœ°å€',
+   employment_time      date,
+   primary key (staff_id),
+   unique key AK_uni_manage (manage_department_id),
+   constraint FK_work_in foreign key (department_id)
+      references Department (department_id) on delete restrict on update restrict,
+   constraint FK_manage foreign key (manage_department_id)
+      references Department (department_id) on delete restrict on update restrict,
+   check (manage_department_id is null or manage_department_id = department_id)
+);
+
+alter table Staff comment 'é“¶è¡Œå‘˜å·¥';
 
 /*==============================================================*/
 /* Table: CheckingAccount                                       */
 /*==============================================================*/
 create table CheckingAccount
 (
-   account_id           varchar(20) not null comment '´¢ĞîÕË»§ºÅ',
-   staff_id             varchar(20) comment 'ÒøĞĞÔ±¹¤Éí·İÖ¤ºÅ',
-   balance              double comment '´¢ĞîÕË»§Óà¶î',
-   open_date            date comment '´¢ĞîÕËºÅ¿ª»§ÈÕÆÚ',
-   last_visit           date comment '´¢ĞîÕËºÅ×î½ü·ÃÎÊÈÕÆÚ',
+   account_id           varchar(20) not null comment 'å‚¨è“„è´¦æˆ·å·',
+   branch_name          varchar(50) not null comment 'æ”¯è¡Œåå­—',
+   staff_id             varchar(20) comment 'é“¶è¡Œå‘˜å·¥èº«ä»½è¯å·',
+   balance              double comment 'å‚¨è“„è´¦æˆ·ä½™é¢',
+   open_date            date comment 'å‚¨è“„è´¦å·å¼€æˆ·æ—¥æœŸ',
+   last_visit           date comment 'å‚¨è“„è´¦å·æœ€è¿‘è®¿é—®æ—¥æœŸ',
    overdraft_limit      double,
-   primary key (account_id)
-);
-
-/*==============================================================*/
-/* Table: CheckingAccountInfo                                   */
-/*==============================================================*/
-create table CheckingAccountInfo
-(
-   account_id           varchar(20) not null comment '´¢ĞîÕË»§ºÅ',
-   branch_name          varchar(50) not null comment 'Ö§ĞĞÃû×Ö',
-   client_id            varchar(20) not null,
-   primary key (account_id, branch_name, client_id),
-   constraint uni_checking_account unique (branch_name, client_id)
+   primary key (account_id),
+   constraint FK_duty foreign key (staff_id)
+      references Staff (staff_id) on delete restrict on update restrict,
+   constraint FK_open foreign key (branch_name)
+      references Branch (branch_name) on delete restrict on update restrict
 );
 
 /*==============================================================*/
@@ -67,25 +79,29 @@ create table CheckingAccountInfo
 create table Client
 (
    client_id            varchar(20) not null,
-   client_name          varchar(50) comment 'Ô±¹¤ĞÕÃû',
-   client_telephone     varchar(20) comment 'Ô±¹¤µç»°ºÅÂë',
-   client_address       varchar(100) comment 'Ô±¹¤¼ÒÍ¥µØÖ·',
-   contact_name         varchar(50) comment 'ÁªÏµÈËĞÕÃû',
-   contact_telephone    varchar(20) comment 'ÁªÏµÈËµç»°ºÅÂë',
-   contact_email        varchar(50) comment 'ÁªÏµÈËemail',
-   relationship         varchar(20) comment 'ÁªÏµÈËÓë¿Í»§¹ØÏµ',
+   client_name          varchar(50) comment 'å‘˜å·¥å§“å',
+   client_telephone     varchar(20) comment 'å‘˜å·¥ç”µè¯å·ç ',
+   client_address       varchar(100) comment 'å‘˜å·¥å®¶åº­åœ°å€',
+   contact_name         varchar(50) comment 'è”ç³»äººå§“å',
+   contact_telephone    varchar(20) comment 'è”ç³»äººç”µè¯å·ç ',
+   contact_email        varchar(50) comment 'è”ç³»äººemail',
+   relationship         varchar(20) comment 'è”ç³»äººä¸å®¢æˆ·å…³ç³»',
    primary key (client_id)
 );
 
 /*==============================================================*/
-/* Table: Department                                            */
+/* Table: HasAccount                                            */
 /*==============================================================*/
-create table Department
+create table HasAccount
 (
-   department_id        varchar(20) not null comment '²¿ÃÅºÅ',
-   department_type      int comment '²¿ÃÅÀàĞÍ',
-   department_name      varchar(50) comment '²¿ÃÅÃû',
-   primary key (department_id)
+   client_id            varchar(20) not null,
+   branch_name          varchar(50) not null comment 'æ”¯è¡Œåå­—',
+   account_type         varchar(10) not null,
+   primary key (client_id, branch_name, account_type),
+   constraint FK_HasAccount foreign key (client_id)
+      references Client (client_id) on delete restrict on update restrict,
+   constraint FK_HasAccount2 foreign key (branch_name)
+      references Branch (branch_name) on delete restrict on update restrict
 );
 
 /*==============================================================*/
@@ -93,101 +109,123 @@ create table Department
 /*==============================================================*/
 create table Loan
 (
-   loan_id              varchar(50) not null comment '´û¿îºÅ',
-   total_amount         double comment 'Ëù´û×Ü½ğ¶î',
-   times                smallint not null comment '¸¶¿î´ÎÊı',
-   staff_id             varchar(20) comment 'ÒøĞĞÔ±¹¤Éí·İÖ¤ºÅ',
+   loan_id              varchar(50) not null comment 'è´·æ¬¾å·',
+   total_amount         double comment 'æ‰€è´·æ€»é‡‘é¢',
+   times                smallint not null comment 'ä»˜æ¬¾æ¬¡æ•°',
+   staff_id             varchar(20) comment 'é“¶è¡Œå‘˜å·¥èº«ä»½è¯å·',
    client_id            varchar(20),
-   branch_name          varchar(50) comment 'Ö§ĞĞÃû×Ö',
-   amount               double comment '´Ë´Î¸¶¿î½ğ¶î',
+   branch_name          varchar(50) comment 'æ”¯è¡Œåå­—',
+   amount               double comment 'æ­¤æ¬¡ä»˜æ¬¾é‡‘é¢',
    issue_date           date,
-   primary key (loan_id, times)
+   primary key (loan_id, times),
+   constraint FK_offer foreign key (branch_name)
+      references Branch (branch_name) on delete restrict on update restrict,
+   constraint FK_get foreign key (client_id)
+      references Client (client_id) on delete restrict on update restrict,
+   constraint FK_loan_duty foreign key (staff_id)
+      references Staff (staff_id) on delete restrict on update restrict
 );
 
-alter table Loan comment '´û¿î';
+alter table Loan comment 'è´·æ¬¾';
+
+/*==============================================================*/
+/* Table: OwnCheckingAccount                                    */
+/*==============================================================*/
+create table OwnCheckingAccount
+(
+   client_id            varchar(20) not null,
+   account_id           varchar(20) not null comment 'å‚¨è“„è´¦æˆ·å·',
+   primary key (client_id, account_id),
+   constraint FK_OwnCheckingAccount foreign key (client_id)
+      references Client (client_id) on delete restrict on update restrict,
+   constraint FK_OwnCheckingAccount2 foreign key (account_id)
+      references CheckingAccount (account_id) on delete restrict on update restrict
+);
 
 /*==============================================================*/
 /* Table: SavingAccount                                         */
 /*==============================================================*/
 create table SavingAccount
 (
-   account_id           varchar(20) not null comment '´¢ĞîÕË»§ºÅ',
-   staff_id             varchar(20) comment 'ÒøĞĞÔ±¹¤Éí·İÖ¤ºÅ',
-   balance              double comment '´¢ĞîÕË»§Óà¶î',
-   open_date            date comment '´¢ĞîÕËºÅ¿ª»§ÈÕÆÚ',
-   last_visit           date comment '´¢ĞîÕËºÅ×î½ü·ÃÎÊÈÕÆÚ',
-   interest_rate        real comment 'ÀûÂÊ',
+   account_id           varchar(20) not null comment 'å‚¨è“„è´¦æˆ·å·',
+   branch_name          varchar(50) not null comment 'æ”¯è¡Œåå­—',
+   staff_id             varchar(20) comment 'é“¶è¡Œå‘˜å·¥èº«ä»½è¯å·',
+   balance              double comment 'å‚¨è“„è´¦æˆ·ä½™é¢',
+   open_date            date comment 'å‚¨è“„è´¦å·å¼€æˆ·æ—¥æœŸ',
+   last_visit           date comment 'å‚¨è“„è´¦å·æœ€è¿‘è®¿é—®æ—¥æœŸ',
+   interest_rate        real comment 'åˆ©ç‡',
    currency             varchar(10),
-   primary key (account_id)
+   primary key (account_id),
+   constraint FK_duty2 foreign key (staff_id)
+      references Staff (staff_id) on delete restrict on update restrict,
+   constraint FK_open2 foreign key (branch_name)
+      references Branch (branch_name) on delete restrict on update restrict
 );
 
 /*==============================================================*/
-/* Table: SavingAccountInfo                                     */
+/* Table: OwnSavingAccount                                      */
 /*==============================================================*/
-create table SavingAccountInfo
+create table OwnSavingAccount
 (
-   account_id           varchar(20) not null comment '´¢ĞîÕË»§ºÅ',
    client_id            varchar(20) not null,
-   branch_name          varchar(50) not null comment 'Ö§ĞĞÃû×Ö',
-   primary key (account_id, client_id, branch_name),
-   constraint uni_checking_account unique (branch_name, client_id)
+   account_id           varchar(20) not null comment 'å‚¨è“„è´¦æˆ·å·',
+   primary key (client_id, account_id),
+   constraint FK_OwnSavingAccount foreign key (client_id)
+      references Client (client_id) on delete restrict on update restrict,
+   constraint FK_OwnSavingAccount2 foreign key (account_id)
+      references SavingAccount (account_id) on delete restrict on update restrict
 );
 
-/*==============================================================*/
-/* Table: Staff                                                 */
-/*==============================================================*/
-create table Staff
-(
-   staff_id             varchar(20) not null comment 'ÒøĞĞÔ±¹¤Éí·İÖ¤ºÅ',
-   manage_department_id varchar(20) comment '²¿ÃÅºÅ',
-   department_id        varchar(20) not null comment '²¿ÃÅºÅ',
-   staff_name           varchar(50) comment 'Ô±¹¤ĞÕÃû',
-   staff_telephone      varchar(20) comment 'Ô±¹¤µç»°ºÅÂë',
-   staff_address        varchar(100) comment 'Ô±¹¤¼ÒÍ¥µØÖ·',
-   employment_time      date,
-   primary key (staff_id),
-   constraint chk_staff_manage check(manage_department_id is null or manage_department_id = department_id),
-   constraint uni_staff_manage unique(manage_department_id)
-);
 
-alter table Staff comment 'ÒøĞĞÔ±¹¤';
+drop trigger if exists Delete_Owner_Saving_Before;
+delimiter |
+create trigger Delete_Owner_Saving_Before before delete
+on OwnSavingAccount for each row
+begin
+    set @bname = (select branch_name from savingaccount where account_id = old.account_id);
+    delete from HasAccount 
+        where client_id = old.client_id 
+            and branch_name=@bname 
+            and account_type='saving';
+end; |
+delimiter ;
 
-alter table CheckingAccount add constraint FK_checking_account_duty foreign key (staff_id)
-      references Staff (staff_id) on delete restrict on update restrict;
 
-alter table CheckingAccountInfo add constraint FK_CheckingAccountInfo foreign key (account_id)
-      references CheckingAccount (account_id) on delete restrict on update restrict;
+drop trigger if exists Insert_Owner_Saving;
+delimiter |
+create trigger Insert_Owner_Saving after insert
+on OwnSavingAccount for each row
+begin
+	set @bname = (select branch_name from savingaccount where account_id = new.account_id);
+	insert into HasAccount(client_id, branch_name, account_type)
+            values(new.client_id, @bname, 'saving');
+end; |
+delimiter ;
 
-alter table CheckingAccountInfo add constraint FK_CheckingAccountInfo2 foreign key (branch_name)
-      references Branch (branch_name) on delete restrict on update restrict;
 
-alter table CheckingAccountInfo add constraint FK_CheckingAccountInfo3 foreign key (client_id)
-      references Client (client_id) on delete restrict on update restrict;
+drop trigger if exists Update_Owner_Saving_Before;
+delimiter |
+create trigger Update_Owner_Saving_Before before update
+on OwnSavingAccount for each row
+begin
+    set @bname = (select branch_name from savingaccount where account_id = old.account_id);
+    delete from HasAccount 
+        where client_id = old.client_id 
+            and branch_name=@bname 
+            and account_type='saving';
+end; |
+delimiter ;
 
-alter table Loan add constraint FK_get foreign key (client_id)
-      references Client (client_id) on delete restrict on update restrict;
 
-alter table Loan add constraint FK_loan_duty foreign key (staff_id)
-      references Staff (staff_id) on delete restrict on update restrict;
-
-alter table Loan add constraint FK_offer foreign key (branch_name)
-      references Branch (branch_name) on delete restrict on update restrict;
-
-alter table SavingAccount add constraint FK_saving_account_duty foreign key (staff_id)
-      references Staff (staff_id) on delete restrict on update restrict;
-
-alter table SavingAccountInfo add constraint FK_SavingAccountInfo foreign key (account_id)
-      references SavingAccount (account_id) on delete restrict on update restrict;
-
-alter table SavingAccountInfo add constraint FK_SavingAccountInfo2 foreign key (client_id)
-      references Client (client_id) on delete restrict on update restrict;
-
-alter table SavingAccountInfo add constraint FK_SavingAccountInfo3 foreign key (branch_name)
-      references Branch (branch_name) on delete restrict on update restrict;
-
-alter table Staff add constraint FK_manage foreign key (manage_department_id)
-      references Department (department_id) on delete restrict on update restrict;
-
-alter table Staff add constraint FK_work_in foreign key (department_id)
-      references Department (department_id) on delete restrict on update restrict;
+drop trigger if exists Update_Owner_Saving_After;
+delimiter |
+create trigger Update_Owner_Saving_After before update
+on OwnSavingAccount for each row
+begin
+    set @bname = (select branch_name from savingaccount where account_id = new.account_id);
+    insert into HasAccount(client_id, branch_name, account_type) 
+        values(new.client_id, @bname, 'saving');
+end;
+|
+delimiter ;
 
