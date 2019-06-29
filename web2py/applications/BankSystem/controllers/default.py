@@ -10,7 +10,8 @@ def index():
     return dict(message=T('Welcome to web2py!'))
 
 def contacts():
-    grid = db._uri
+    grid = bankdb._uri
+    # records = str(SQLTABLE(bankdb().select(bankdb.client.ALL), name="张三").__class__)
     return locals()
 
 # ---- API (example) -----

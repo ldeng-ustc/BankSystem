@@ -148,8 +148,7 @@ if configuration.get('scheduler.enabled'):
 # >>> rows = db(db.mytable.myfield == 'value').select(db.mytable.ALL)
 # >>> for row in rows: print row.id, row.myfield
 # -------------------------------------------------------------------------
-db=DAL("mysql://root:mysql@localhost:3306/bank")
-db.define_table('test_table',Field('id'),Field('tttt'),Field('age'),primarykey=['id'],migrate=False)
+bankdb=DAL("mysql://bank_admin:bank_admin@localhost:3306/bank")
 # -------------------------------------------------------------------------
 # after defining tables, uncomment below to enable auditing
 # -------------------------------------------------------------------------
