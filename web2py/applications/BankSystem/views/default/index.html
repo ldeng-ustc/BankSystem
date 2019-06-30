@@ -1,49 +1,35 @@
-{{extend 'layout.html'}}
+{{extend 'bank_layout.html'}}
 
 {{block header}}
 <div class="jumbotron jumbotron-fluid background" style="background-color: #333; color:white; padding:30px;word-wrap:break-word;">
   <div class="container center">
-    <h1 class="display-5">/{{=request.application}}/{{=request.controller}}/{{=request.function}}</h1>
+    <h1 class="display-5">银行业务管理系统 v1.0</h1>
   </div>
 </div>
 {{end}}
 
-<div class="row">
+<div class="row" style="width: 1000px; margin: auto;">
   <div class="col-md-12">
-    {{if 'message' in globals():}}
-    <h2>{{=message}}</h2>
-    <p class="lead">{{=T('How did you get here?')}}</p>
-    <ol style="word-wrap:break-word;">
-      <li>{{=T('You are successfully running web2py')}}</li>
-      <li>{{=XML(T('You visited the url %s', A(request.env.path_info,_href=request.env.path_info)))}}</li>
-      <li>{{=XML(T('Which called the function %s located in the file %s',
-        (A(request.function+'()',_href='#'),
-        A('web2py/applications/%(application)s/controllers/%(controller)s.py' % request,
-        _href=URL('admin','default','peek', args=(request.application,'controllers',request.controller+'.py'))))))}}</li>
-      <li>{{=XML(T('The output of the file is a dictionary that was rendered by the view %s',
-        A('web2py/applications/%(application)s/views/%(controller)s/index.html' % request,
-        _href=URL('admin','default','peek',args=(request.application,'views',request.controller,'index.html')))))}}</li>
-      <li>{{=T('You can modify this application and adapt it to your needs')}}</li>
-    </ol>
+    <h2>欢迎使用银行业务管理系统</h2>
+    {{if auth.user:}}
+    <p class="lead">{{=T('登录成功！')}}{{=T('欢迎您，')}}{{=auth.user.first_name + ' ' + auth.user.last_name + '！'}}</p>
+    {{else:}}
+    <p class="lead">{{=T('请先登录')}}</p>
+    {{pass}}
     <div class="jumbotron jumbotron-fluid" style="padding:30px;word-wrap:break-word;">
       <div class="container center">
-        <a class="btn btn-primary" href="{{=URL('admin','default','index')}}">
+        <a class="btn btn-primary" href="{{=URL('BankSystem','user','logout')}}">
           <i class="fa fa-cog"></i>
-          {{=T("admin")}}
+          {{=T("登出")}}
         </a>
-        <a class="btn btn-secondary" href="{{=URL('examples','default','index')}}">{{=T("Online examples")}}</a>
-        <a class="btn btn-secondary" href="http://web2py.com">web2py.com</a>
-        <a class="btn btn-secondary" href="http://web2py.com/book">{{=T('Documentation')}}</a>
-        <a class="btn btn-secondary" href="{{=URL('default','api_get_user_email')}}">{{=T('API Example')}}</a>
-        <a class="btn btn-secondary" href="{{=URL('default','grid/auth_user')}}">{{=T('Grid Example')}}</a>
-        <a class="btn btn-secondary" href="{{=URL('default','wiki')}}">{{=T('Wiki Example')}}</a>
+        <a class="btn btn-secondary" href="{{=URL('BankSystem','default','branch')}}">支行管理</a>
+        <a class="btn btn-secondary" href="{{=URL('BankSystem','default','staff')}}">员工管理</a>
+        <a class="btn btn-secondary" href="{{=URL('BankSystem','default','client')}}">客户管理</a>
+        <a class="btn btn-secondary" href="{{=URL('BankSystem','default','account')}}">账户管理</a>
+        <a class="btn btn-secondary" href="{{=URL('BankSystem','default','loan')}}">贷款管理</a>
+        <a class="btn btn-secondary" href="{{=URL('BankSystem','default','stat')}}">统计</a>
       </div>
     </div>
-    {{elif 'content' in globals():}}
-    {{=content}}
-    {{else:}}
-    {{=BEAUTIFY(response._vars)}}
-    {{pass}}
   </div>
 </div>
 

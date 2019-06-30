@@ -284,7 +284,7 @@ delimiter ;
 
 drop user if exists bank_admin@localhost;
 flush privileges;
-create user bank_admin@localhost identified by 'bank_admin';
+create user bank_admin@localhost identified with mysql_native_password by 'bank_admin';
 grant select on *.* to bank_admin@localhost;
 grant insert,delete,update,select on bank.branch to bank_admin@localhost;
 grant insert,delete,update,select on bank.client to bank_admin@localhost;

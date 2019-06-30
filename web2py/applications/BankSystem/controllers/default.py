@@ -5,14 +5,29 @@
 # -------------------------------------------------------------------------
 
 # ---- example index page ----
-def index():
-    response.flash = T("Hello World")
-    return dict(message=T('Welcome to web2py!'))
+import utils
 
-def contacts():
-    grid = bankdb._uri
-    # records = str(SQLTABLE(bankdb().select(bankdb.client.ALL), name="张三").__class__)
-    return locals()
+def index():
+    return dict()
+
+def branch():
+    table_name = 'client'
+    vars = dict(request.vars)
+    table, col, pk = utils.get_table_info(bankdb, table_name)
+    sql = ''
+    if 'insert' in vars:
+        sql = utils.build_insert_sql(table_name, col, vars)
+    elif 'update' in vars:
+        sql = utils.build_update_sql(table_name, col, vars, pk)
+    if len(vars) > 0:
+        try:
+            bankdb.executesql(sql)
+        except Exception as e:
+            response.flash = T('操作失败，请检查参数。' + str(e))
+
+    table, col, pk = utils.get_table_info(bankdb, 'client')
+    op = ['select', 'insert', 'update', 'delete']
+    return dict(message=T('支行管理'), table=table, col=col, pk=pk, op=op, rq=sql)
 
 # ---- API (example) -----
 @auth.requires_login()
