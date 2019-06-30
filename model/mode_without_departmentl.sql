@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2019/6/29 10:48:45                           */
+/* Created on:     2019/6/30 13:03:17                           */
 /*==============================================================*/
 drop database bank;
 create database bank;
@@ -20,34 +20,19 @@ create table Branch
 alter table Branch comment '支行';
 
 /*==============================================================*/
-/* Table: Department                                            */
-/*==============================================================*/
-create table Department
-(
-   department_id        varchar(20) not null comment '部门号',
-   department_type      int comment '部门类型',
-   department_name      varchar(50) comment '部门名',
-   primary key (department_id)
-);
-
-/*==============================================================*/
 /* Table: Staff                                                 */
 /*==============================================================*/
 create table Staff
 (
    staff_id             varchar(20) not null comment '银行员工身份证号',
-   manage_department_id varchar(20) comment '部门号',
-   department_id        varchar(20) not null comment '部门号',
    staff_name           varchar(50) comment '员工姓名',
    staff_telephone      varchar(20) comment '员工电话号码',
    staff_address        varchar(100) comment '员工家庭地址',
    employment_time      date,
+   department_id        varchar(20) comment '部门号',
+   manage_department_id varchar(20),
    primary key (staff_id),
    unique key AK_uni_manage (manage_department_id),
-   constraint FK_work_in foreign key (department_id)
-      references Department (department_id) on delete restrict on update restrict,
-   constraint FK_manage foreign key (manage_department_id)
-      references Department (department_id) on delete restrict on update restrict,
    check (manage_department_id is null or manage_department_id = department_id)
 );
 
@@ -286,8 +271,7 @@ create user bank_admin@localhost identified with mysql_native_password by 'bank_
 grant select on *.* to bank_admin@localhost;
 grant insert,delete,update,select on bank.branch to bank_admin@localhost;
 grant insert,delete,update,select on bank.client to bank_admin@localhost;
-grant insert,delete,update,select on bank.department to bank_admin@localhost;
-grant insert,delete,update,select on bank.loan to bank_admin@localhost;
+grant insert,delete,select on bank.loan to bank_admin@localhost;
 grant insert,delete,update,select on bank.checkingaccount to bank_admin@localhost;
 grant insert,delete,update,select on bank.savingaccount to bank_admin@localhost;
 grant insert,delete,update,select on bank.owncheckingaccount to bank_admin@localhost;
