@@ -36,28 +36,51 @@
     <div class="w2p_flash alert alert-dismissable">{{=response.flash or ''}}</div>
     <!-- Navbar ======================================= -->
     <nav class="navbar navbar-light navbar-expand-md bg-faded bg-dark navbar-dark justify-content-center">
-       <a href="http://web2py.com" class="navbar-brand d-flex w-50 mr-auto">web2py</a>
+       <a href="/" class="navbar-brand d-flex w-50 mr-auto">BankSystem</a>
        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
        </button>
        <div class="navbar-collapse collapse w-100" id="navbarNavDropdown">
          <ul class="navbar-nav w-100 justify-content-center">
-          {{for _item in response.menu or []:}}
-          {{if len(_item)<4 or not _item[3]:}}
-          <li class="nav-item {{if _item[1]:}}active{{pass}}">
-            <a class="nav-link" href="{{=_item[2]}}">{{=_item[0]}}</a>
-          </li>
-          {{else:}}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="{{=_item[2]}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{=_item[0]}}</a>
+           <li class="nav-item ">
+             <a class="nav-link" href="/">首页</a>
+           </li>
+           <li class="nav-item ">
+             <a class="nav-link" href="/branch">支行管理</a>
+           </li>
+           <li class="nav-item ">
+             <a class="nav-link" href="/staff">员工管理</a>
+           </li>
+           <li class="nav-item ">
+             <a class="nav-link" href="/client">客户管理</a>
+           </li>
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">账户管理</a>
             <div class="dropdown-menu">
-              {{for _subitem in _item[3]:}}
-              <a class="dropdown-item" href="{{=_subitem[2]}}">{{=_subitem[0]}}</a>
-              {{pass}}
+
+              <a class="dropdown-item" href="/checkingaccount">支票账户</a>
+
+              <a class="dropdown-item" href="/owncheckingaccount">支票账户所有权</a>
+
+              <a class="dropdown-item" href="/savingaccount">储蓄账户</a>
+
+              <a class="dropdown-item" href="/ownsavingaccount">储蓄账户所有权</a>
+
+              <a class="dropdown-item" href="/hasaccount">开户情况</a>
             </div>
-          </li>
-          {{pass}}
-          {{pass}}
+           </li>
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">贷款管理</a>
+            <div class="dropdown-menu">
+
+              <a class="dropdown-item" href="/loan">分次贷款信息</a>
+
+              <a class="dropdown-item" href="/loaninfo">贷款状态查询</a>
+            </div>
+           </li>
+           <li class="nav-item ">
+             <a class="nav-link" href="/summary">统计</a>
+           </li>
         </ul>
          <form class="form-inline my-2 my-lg-0">
              <input class="form-control mr-sm-2" type="text" placeholder="Search">

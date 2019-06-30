@@ -22,11 +22,10 @@ select * from hasaccount;
 delete from ownsavingaccount where client_id = 'U001';
 select * from hasaccount;
 
-insert into department(department_id) value('D001');
-insert into department(department_id) value('D002');
-
-insert into staff(staff_id, manage_department_id, department_id, staff_name)
-			value('E001', 'D001', 'D001', '李四');
+insert into staff(staff_id, manage_department_id, department_id, staff_name, employment_time)
+			value('E001', 'D001', 'D001', '李四', str_to_date('2016-01-02', '%Y-%m-%d'));
+insert into staff(staff_id, manage_department_id, department_id, staff_name, employment_time)
+			value('E004', NULL, 'D001', '李五', str_to_date('2016-02-01', '%Y-%d-%m'));
 insert into staff(staff_id, manage_department_id, department_id, staff_name)
 			value('E002', 'D002', 'D001', '王五');
 insert into staff(staff_id, manage_department_id, department_id, staff_name)

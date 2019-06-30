@@ -7,27 +7,209 @@
 # ---- example index page ----
 import utils
 
+
 def index():
     return dict()
 
+
 def branch():
-    table_name = 'client'
+    message = T('支行管理')
+    table_name = 'branch'
     vars = dict(request.vars)
-    table, col, pk = utils.get_table_info(bankdb, table_name)
-    sql = ''
-    if 'insert' in vars:
-        sql = utils.build_insert_sql(table_name, col, vars)
-    elif 'update' in vars:
-        sql = utils.build_update_sql(table_name, col, vars, pk)
-    if len(vars) > 0:
+    sql = utils.build_sql(bankdb, table_name, vars)
+    table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    if sql is not None:
         try:
-            bankdb.executesql(sql)
+            table_values = bankdb.executesql(sql, as_dict=True)
         except Exception as e:
             response.flash = T('操作失败，请检查参数。' + str(e))
+    if not 'select' in vars:
+        table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    operations = ['select', 'insert', 'update', 'delete']
+    return dict(locals())
 
-    table, col, pk = utils.get_table_info(bankdb, 'client')
-    op = ['select', 'insert', 'update', 'delete']
-    return dict(message=T('支行管理'), table=table, col=col, pk=pk, op=op, rq=sql)
+
+def staff():
+    message = T('员工管理')
+    table_name = 'staff'
+    response.view = 'default/branch.html'
+    vars = dict(request.vars)
+    sql = utils.build_sql(bankdb, table_name, vars)
+    table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    if sql is not None:
+        try:
+            table_values = bankdb.executesql(sql, as_dict=True)
+        except Exception as e:
+            response.flash = T('操作失败，请检查参数。' + str(e))
+    if not 'select' in vars:
+        table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    operations = ['select', 'insert', 'update', 'delete']
+    return dict(locals())
+
+
+def client():
+    message = T('客户管理')
+    table_name = 'client'
+    response.view = 'default/branch.html'
+    vars = dict(request.vars)
+    sql = utils.build_sql(bankdb, table_name, vars)
+    table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    if sql is not None:
+        try:
+            table_values = bankdb.executesql(sql, as_dict=True)
+        except Exception as e:
+            response.flash = T('操作失败，请检查参数。' + str(e))
+    if not 'select' in vars:
+        table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    operations = ['select', 'insert', 'update', 'delete']
+    return dict(locals())
+
+
+def checkingaccount():
+    message = T('支票账户管理')
+    table_name = 'checkingaccount'
+    response.view = 'default/branch.html'
+    vars = dict(request.vars)
+    sql = utils.build_sql(bankdb, table_name, vars)
+    table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    if sql is not None:
+        try:
+            table_values = bankdb.executesql(sql, as_dict=True)
+        except Exception as e:
+            response.flash = T('操作失败，请检查参数。' + str(e))
+    if not 'select' in vars:
+        table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    operations = ['select', 'insert', 'update', 'delete']
+    return dict(locals())
+
+
+def owncheckingaccount():
+    message = T('支票账户所有权管理')
+    table_name = 'owncheckingaccount'
+    response.view = 'default/branch.html'
+    vars = dict(request.vars)
+    sql = utils.build_sql(bankdb, table_name, vars)
+    table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    if sql is not None:
+        try:
+            table_values = bankdb.executesql(sql, as_dict=True)
+        except Exception as e:
+            response.flash = T('操作失败，请检查参数。' + str(e))
+    if not 'select' in vars:
+        table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    operations = ['select', 'insert', 'update', 'delete']
+    return dict(locals())
+
+
+def savingaccount():
+    message = T('储蓄账户管理')
+    table_name = 'savingaccount'
+    response.view = 'default/branch.html'
+    vars = dict(request.vars)
+    sql = utils.build_sql(bankdb, table_name, vars)
+    table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    if sql is not None:
+        try:
+            table_values = bankdb.executesql(sql, as_dict=True)
+        except Exception as e:
+            response.flash = T('操作失败，请检查参数。' + str(e))
+    if not 'select' in vars:
+        table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    operations = ['select', 'insert', 'update', 'delete']
+    return dict(locals())
+
+
+def ownsavingaccount():
+    message = T('储蓄账户所有权管理')
+    table_name = 'ownsavingaccount'
+    response.view = 'default/branch.html'
+    vars = dict(request.vars)
+    sql = utils.build_sql(bankdb, table_name, vars)
+    table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    if sql is not None:
+        try:
+            table_values = bankdb.executesql(sql, as_dict=True)
+        except Exception as e:
+            response.flash = T('操作失败，请检查参数。' + str(e))
+    if not 'select' in vars:
+        table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    operations = ['select', 'insert', 'update', 'delete']
+    return dict(locals())
+
+
+def hasaccount():
+    message = T('开户情况')
+    table_name = 'hasaccount'
+    response.view = 'default/branch.html'
+    vars = dict(request.vars)
+    sql = utils.build_sql(bankdb, table_name, vars)
+    table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    if sql is not None:
+        try:
+            table_values = bankdb.executesql(sql, as_dict=True)
+        except Exception as e:
+            response.flash = T('操作失败，请检查参数。' + str(e))
+    if not 'select' in vars:
+        table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    operations = ['select']
+    return dict(locals())
+
+
+def loan():
+    message = T('贷款管理')
+    table_name = 'loan'
+    response.view = 'default/branch.html'
+    vars = dict(request.vars)
+    sql = utils.build_sql(bankdb, table_name, vars)
+    table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    if sql is not None:
+        try:
+            table_values = bankdb.executesql(sql, as_dict=True)
+        except Exception as e:
+            response.flash = T('操作失败，请检查参数。' + str(e))
+    if not 'select' in vars:
+        table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    operations = ['select', 'insert', 'delete']
+    return dict(locals())
+
+
+def loaninfo():
+    message = T('贷款状态查询')
+    table_name = 'loaninfo'
+    response.view = 'default/branch.html'
+    vars = dict(request.vars)
+    sql = utils.build_sql(bankdb, table_name, vars)
+    table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    if sql is not None:
+        try:
+            table_values = bankdb.executesql(sql, as_dict=True)
+        except Exception as e:
+            response.flash = T('操作失败，请检查参数。' + str(e))
+    if not 'select' in vars:
+        table_values, column_name_list, primary_key_list, column_type_list = utils.get_table_info(bankdb, table_name)
+    operations = ['select']
+    return dict(locals())
+
+def summary():
+    message = '数据统计'
+    vars = dict(request.vars)
+    labels = []
+    sizes = []
+    try:
+        if 'submit' in vars:
+            table_name = vars['table_name']
+            data_type = vars['data_type']
+            start_date = vars['start']
+            end_date = vars['end']
+            sql = f'select branch_name, {data_type} from {table_name} where open_date between "{start_date}" and "{end_date}" group by branch_name;'
+            table_values = bankdb.executesql(sql)
+            labels = [row[0] for row in table_values]
+            sizes = [float(row[1]) for row in table_values]
+            utils.plot(labels, sizes)
+    except Exception as e:
+        response.flash = sql + str(e)
+        massage = sql
+    return dict(locals())
 
 # ---- API (example) -----
 @auth.requires_login()

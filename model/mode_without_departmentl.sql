@@ -107,8 +107,12 @@ create table Loan
    constraint FK_get foreign key (client_id)
       references Client (client_id) on delete restrict on update restrict,
    constraint FK_loan_duty foreign key (staff_id)
-      references Staff (staff_id) on delete restrict on update restrict
+      references Staff (staff_id) on delete restrict on update restrict,
+   constraint CK_loan_info check(times != 0 or amount = 0)
 );
+
+create view LoanInfo (loan_id, total_amount, loaned_amount) as
+	select loan_id, max(total_amount), sum(amount) from Loan group by loan_id;
 
 alter table Loan comment '贷款';
 
