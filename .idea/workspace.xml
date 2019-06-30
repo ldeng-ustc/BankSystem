@@ -2,19 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70adc8e8-e3c4-4510-a22b-d39970d832ef" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/model.sql" beforeDir="false" afterPath="$PROJECT_DIR$/model/model.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web2py/applications/BankSystem/controllers/default.py" beforeDir="false" afterPath="$PROJECT_DIR$/web2py/applications/BankSystem/controllers/default.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web2py/applications/BankSystem/databases/storage.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/web2py/applications/BankSystem/databases/storage.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web2py/applications/BankSystem/languages/zh-cn.py" beforeDir="false" afterPath="$PROJECT_DIR$/web2py/applications/BankSystem/languages/zh-cn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web2py/applications/BankSystem/routes.example.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web2py/applications/BankSystem/views/default/contacts.html" beforeDir="false" afterPath="$PROJECT_DIR$/web2py/applications/BankSystem/views/default/contacts.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web2py/applications/BankSystem/views/default/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web2py/applications/BankSystem/views/default/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web2py/examples/routes.parametric.example.py" beforeDir="false" afterPath="$PROJECT_DIR$/web2py/examples/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web2py/httpserver.log" beforeDir="false" afterPath="$PROJECT_DIR$/web2py/httpserver.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web2py/httpserver.pid" beforeDir="false" afterPath="$PROJECT_DIR$/web2py/httpserver.pid" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web2py/parameters_8000.py" beforeDir="false" afterPath="$PROJECT_DIR$/web2py/parameters_8000.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Workspace.sws" beforeDir="false" afterPath="$PROJECT_DIR$/model/Workspace.sws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/flowchart.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/flowchart.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/flowchart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/models.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/models.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/models.png" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +32,7 @@
         <entry file="file://$PROJECT_DIR$/web2py/applications/BankSystem/views/default/branch.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="171">
-              <caret line="15" column="15" lean-forward="true" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
+              <caret line="15" column="15" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
               <folding>
                 <element signature="n#style#0;n#input#0;n#form#0;n#!!top" expanded="true" />
               </folding>
@@ -67,7 +62,7 @@
         <entry file="file://$PROJECT_DIR$/web2py/applications/BankSystem/modules/utils.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="152">
-              <caret line="43" column="39" lean-forward="true" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="39" />
+              <caret line="43" column="39" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -256,12 +251,12 @@
       <option name="presentableId" value="Default" />
       <updated>1560705293396</updated>
       <workItem from="1560705295317" duration="6260000" />
-      <workItem from="1561785425716" duration="35813000" />
+      <workItem from="1561785425716" duration="36407000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42073000" />
+    <option name="totallyTimeSpent" value="42667000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
@@ -471,7 +466,7 @@
     <entry file="file://$PROJECT_DIR$/web2py/applications/BankSystem/views/default/branch.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
-          <caret line="15" column="15" lean-forward="true" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
+          <caret line="15" column="15" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
           <folding>
             <element signature="n#style#0;n#input#0;n#form#0;n#!!top" expanded="true" />
           </folding>
@@ -495,7 +490,7 @@
     <entry file="file://$PROJECT_DIR$/web2py/applications/BankSystem/modules/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
-          <caret line="43" column="39" lean-forward="true" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="39" />
+          <caret line="43" column="39" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="39" />
         </state>
       </provider>
     </entry>

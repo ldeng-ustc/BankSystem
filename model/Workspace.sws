@@ -4,8 +4,8 @@
 
 <Workspace>
 	<Local Expanded="Yes">
-		<Model Expanded="Yes" ID="{B11FAF7A-61F1-4A5F-8953-B631D12F1A2E}" Name="BankSystem" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="BankSystem.cdm"/>
-		<Model Expanded="Yes" ID="{0A358DAC-7620-4DA1-A02C-D07A0ACD2E63}" Name="BankSystem" Selected="Yes" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="BankSystem.pdm"/>
+		<Model Expanded="Yes" ID="{B11FAF7A-61F1-4A5F-8953-B631D12F1A2E}" Name="BankSystem" OpenedReadOnly="Yes" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="BankSystem.cdm"/>
+		<Model Expanded="Yes" ID="{0A358DAC-7620-4DA1-A02C-D07A0ACD2E63}" Name="BankSystem" OpenedReadOnly="Yes" Selected="Yes" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="BankSystem.pdm"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>
